@@ -106,10 +106,18 @@ section{position:relative;z-index:1;}
   padding:120px 20px 80px;
   text-align:center;
 }
+.hero-logo-center{
+  margin-bottom:32px;
+  display:flex;justify-content:center;
+}
+.hero-logo-center .hero-logo-wrap{
+  width:180px;height:180px;
+}
 .hero-brand{
-  display:flex;align-items:center;justify-content:center;
-  gap:32px;margin-bottom:36px;
-  flex-wrap:wrap;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  margin-bottom:32px;
+  text-align:center;
 }
 .hero-logo-wrap{
   position:relative;
@@ -654,12 +662,14 @@ footer{
 <!-- HERO -->
 <section class="hero">
   <div class="hero-brand fade-up">
-    <div class="hero-logo-wrap">
-      <img src="assets/mydow.jpeg" alt="Mydow"/>
-    </div>
     <div class="hero-title-block">
       <h1 class="hero-title">MYDOW</h1>
       <p class="hero-subtitle">O Agente que Trabalha com Sabedoria</p>
+    </div>
+  </div>
+  <div class="hero-logo-center fade-up">
+    <div class="hero-logo-wrap">
+      <img src="assets/mydow.jpeg" alt="Mydow"/>
     </div>
   </div>
   <p class="hero-desc fade-up">
