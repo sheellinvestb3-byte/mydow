@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Mydow — Sua Mente Digital que Opera com Sabedoria</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --cyan:#00D4FF;
+  --cyan2:#00FFFF;
+  --blue:#0055AA;
+  --bg:#060A14;
+  --bg2:#0A0F1E;
+  --bg3:#0D1425;
+  --card:#0E1628;
+  --card2:#101830;
+  --yellow:#FFD700;
+  --text:#D6F0FF;
+  --text2:#8BB8D4;
+  --glow:0 0 20px #00D4FF88,0 0 40px #00D4FF44,0 0 80px #00D4FF22;
+  --glow2:0 0 10px #00D4FF66,0 0 20px #00D4FF33;
+  --border:1px solid #00D4FF22;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Exo 2',sans-serif;
+  overflow-x:hidden;
+  cursor:default;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:#060A14;}
+::-webkit-scrollbar-thumb{background:#00D4FF44;border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:#00D4FF88;}
+
+/* CANVAS */
+#canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+
+/* GRID OVERLAY */
+.grid-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(#00D4FF08 1px,transparent 1px),
+    linear-gradient(90deg,#00D4FF08 1px,transparent 1px);
+  background-size:60px 60px;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:16px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(180deg,#060A14EE 0%,transparent 100%);
+  backdrop-filter:blur(10px);
+  border-bottom:var(--border);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:12px;
+}
+.nav-logo img{
+  width:36px;height:36px;border-radius:8px;
+  box-shadow:var(--glow2);
+}
+.nav-logo span{
+  font-family:'Orbitron',monospace;
+  font-weight:900;font-size:1.1rem;
+  color:var(--cyan);
+  letter-spacing:3px;
+  text-shadow:var(--glow);
+}
+.nav-cta{
+  background:transparent;
+  border:1px solid var(--cyan);
+  color:var(--cyan);
+  font-family:'Exo 2',sans-serif;
+  font-weight:600;font-size:.85rem;
+  letter-spacing:2px;
+  padding:10px 24px;
+  border-radius:4px;
+  cursor:pointer;
+  text-decoration:none;
+  text-transform:uppercase;
+  transition:all .3s ease;
+  box-shadow:var(--glow2);
+}
+.nav-cta:hover{
+  background:var(--cyan);
+  color:var(--bg);
+  box-shadow:var(--glow);
+}
+
+/* SECTIONS */
+section{position:relative;z-index:1;}
+
+/* ═══════════════════ HERO ═══════════════════ */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:120px 20px 80px;
+  text-align:center;
+}
+.hero-brand{
+  display:flex;align-items:center;justify-content:center;
+  gap:32px;margin-bottom:36px;
+  flex-wrap:wrap;
+}
+.hero-logo-wrap{
+  position:relative;
+  width:130px;height:130px;
+  flex-shrink:0;
+}
+.hero-logo-wrap::before{
+  content:'';
+  position:absolute;inset:-12px;
+  border-radius:24px;
+  background:radial-gradient(circle,#00D4FF22 0%,transparent 70%);
+  animation:pulse 3s ease-in-out infinite;
+}
+.hero-logo-wrap::after{
+  content:'';
+  position:absolute;inset:-4px;
+  border-radius:22px;
+  border:1px solid #00D4FF44;
+  animation:rotateBorder 8s linear infinite;
+}
+.hero-logo-wrap img{
+  width:100%;height:100%;
+  object-fit:contain;border-radius:20px;
+  position:relative;z-index:2;
+  animation:float 5s ease-in-out infinite;
+  filter:drop-shadow(0 0 20px #00D4FF88);
+}
+.hero-title-block{text-align:left;}
+.hero-title{
+  font-family:'Orbitron',monospace;
+  font-weight:900;
+  font-size:clamp(3rem,8vw,6rem);
+  color:var(--cyan);
+  letter-spacing:8px;
+  text-shadow:var(--glow);
+  line-height:1;
+  margin-bottom:8px;
+}
+.hero-subtitle{
+  font-family:'Exo 2',sans-serif;
+  font-weight:300;font-size:clamp(.9rem,2vw,1.1rem);
+  color:var(--text2);
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+.hero-desc{
+  max-width:600px;
+  font-size:1.05rem;
+  font-weight:300;
+  line-height:1.8;
+  color:var(--text);
+  margin-bottom:40px;
+  opacity:.9;
+}
+.hero-cta{
+  display:inline-block;
+  padding:18px 52px;
+  background:transparent;
+  border:1px solid var(--cyan);
+  color:var(--cyan);
+  font-family:'Orbitron',monospace;
+  font-weight:700;font-size:.9rem;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  text-decoration:none;
+  border-radius:4px;
+  position:relative;
+  overflow:hidden;
+  transition:all .4s ease;
+  box-shadow:var(--glow2),inset 0 0 0 0 var(--cyan);
+  cursor:pointer;
+}
+.hero-cta::before{
+  content:'';
+  position:absolute;top:0;left:-100%;
+  width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,#00D4FF22,transparent);
+  transition:left .5s ease;
+}
+.hero-cta:hover::before{left:100%;}
+.hero-cta:hover{
+  background:var(--cyan);
+  color:var(--bg);
+  box-shadow:var(--glow);
+}
+.hero-badge{
+  margin-top:60px;
+  display:flex;align-items:center;gap:12px;
+  opacity:.5;font-size:.75rem;letter-spacing:2px;
+  text-transform:uppercase;color:var(--text2);
+}
+.hero-badge::before,.hero-badge::after{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+}
+
+/* ═══════════════════ STORY ═══════════════════ */
+.story{
+  padding:100px 20px;
+  max-width:860px;margin:0 auto;
+  text-align:center;
+}
+.section-tag{
+  display:inline-block;
+  font-family:'Share Tech Mono',monospace;
+  font-size:.75rem;letter-spacing:4px;
+  color:var(--cyan);
+  text-transform:uppercase;
+  border:1px solid #00D4FF33;
+  padding:6px 16px;border-radius:2px;
+  margin-bottom:24px;
+  background:#00D4FF08;
+}
+.story h2{
+  font-family:'Orbitron',monospace;
+  font-weight:700;font-size:clamp(1.6rem,4vw,2.4rem);
+  color:var(--text);
+  margin-bottom:28px;
+  line-height:1.3;
+}
+.story h2 span{color:var(--cyan);text-shadow:var(--glow2);}
+.story p{
+  font-size:1.05rem;font-weight:300;
+  line-height:1.9;color:var(--text2);
+  margin-bottom:20px;
+}
+.story p strong{color:var(--cyan);font-weight:600;}
+
+/* ═══════════════════ FRAMEWORK ═══════════════════ */
+.framework{
+  padding:100px 20px;
+  text-align:center;
+}
+.framework-cards{
+  display:flex;justify-content:center;
+  gap:12px;flex-wrap:nowrap;
+  margin:48px auto 40px;
+  max-width:860px;
+}
+.fw-card{
+  flex:1;min-width:0;
+  background:var(--card);
+  border:1px solid #00D4FF33;
+  border-radius:12px;
+  padding:28px 12px;
+  position:relative;
+  overflow:hidden;
+  transition:all .4s ease;
+}
+.fw-card::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,#00D4FF11 0%,transparent 60%);
+  opacity:0;transition:opacity .4s ease;
+}
+.fw-card:hover::before{opacity:1;}
+.fw-card:hover{
+  border-color:#00D4FF88;
+  transform:translateY(-8px);
+  box-shadow:var(--glow2);
+}
+.fw-letter{
+  font-family:'Orbitron',monospace;
+  font-weight:900;font-size:2.8rem;
+  color:var(--cyan);
+  text-shadow:var(--glow);
+  line-height:1;margin-bottom:10px;
+}
+.fw-en{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.8rem;letter-spacing:2px;
+  color:var(--text2);text-transform:uppercase;
+  margin-bottom:6px;
+}
+.fw-pt{
+  font-family:'Exo 2',sans-serif;
+  font-size:.85rem;font-weight:600;
+  color:var(--text);letter-spacing:1px;
+}
+.framework-slogan{
+  font-family:'Orbitron',monospace;
+  font-weight:700;
+  font-size:clamp(1rem,2.5vw,1.5rem);
+  color:var(--cyan);
+  text-shadow:var(--glow);
+  letter-spacing:3px;
+  margin-top:8px;
+}
+
+/* ═══════════════════ FEATURES ═══════════════════ */
+.features{padding:100px 20px;}
+.section-title{
+  font-family:'Orbitron',monospace;
+  font-weight:700;font-size:clamp(1.5rem,4vw,2.2rem);
+  color:var(--text);text-align:center;
+  margin-bottom:12px;
+}
+.section-title span{color:var(--cyan);text-shadow:var(--glow2);}
+.section-sub{
+  text-align:center;font-size:.95rem;
+  color:var(--text2);font-weight:300;
+  margin-bottom:56px;letter-spacing:1px;
+}
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;max-width:1100px;margin:0 auto;
+}
+.feat-card{
+  background:var(--card);
+  border:var(--border);
+  border-radius:12px;
+  padding:32px 24px;
+  position:relative;overflow:hidden;
+  transition:all .4s ease;
+}
+.feat-card::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  transform:scaleX(0);transition:transform .4s ease;
+}
+.feat-card:hover::after{transform:scaleX(1);}
+.feat-card:hover{
+  border-color:#00D4FF66;
+  transform:translateY(-4px);
+  box-shadow:0 8px 32px #00D4FF1A;
+}
+.feat-icon{
+  font-size:2rem;margin-bottom:16px;
+  display:block;filter:drop-shadow(0 0 8px var(--cyan));
+}
+.feat-title{
+  font-family:'Orbitron',monospace;
+  font-weight:700;font-size:.9rem;
+  color:var(--cyan);letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:12px;
+}
+.feat-desc{
+  font-size:.9rem;font-weight:300;
+  line-height:1.7;color:var(--text2);
+}
+
+/* ═══════════════════ PLANS ═══════════════════ */
+.plans{padding:100px 20px;}
+.plans-category{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.8rem;letter-spacing:4px;
+  color:var(--cyan);text-align:center;
+  text-transform:uppercase;
+  margin-bottom:32px;
+  display:flex;align-items:center;gap:16px;
+  justify-content:center;
+}
+.plans-category::before,.plans-category::after{
+  content:'';width:80px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan));
+}
+.plans-category::after{
+  background:linear-gradient(90deg,var(--cyan),transparent);
+}
+.plans-grid{
+  display:grid;gap:20px;
+  max-width:1100px;margin:0 auto 80px;
+}
+.plans-grid.personal{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
+.plans-grid.business{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+.plan-card{
+  background:var(--card);
+  border:var(--border);
+  border-radius:16px;
+  padding:36px 24px;
+  text-align:center;
+  position:relative;overflow:hidden;
+  transition:all .4s ease;
+}
+.plan-card.featured{
+  border-color:#00D4FF88;
+  background:linear-gradient(135deg,#0E1628 0%,#0A1830 100%);
+  box-shadow:var(--glow2);
+}
+.plan-card.featured::before{
+  content:'MAIS POPULAR';
+  position:absolute;top:16px;right:-28px;
+  background:var(--cyan);color:var(--bg);
+  font-family:'Share Tech Mono',monospace;
+  font-size:.65rem;letter-spacing:2px;
+  padding:4px 40px;
+  transform:rotate(45deg);
+}
+.plan-card:hover{
+  border-color:#00D4FF66;
+  transform:translateY(-6px);
+  box-shadow:0 16px 48px #00D4FF1A;
+}
+.plan-name{
+  font-family:'Orbitron',monospace;
+  font-weight:700;font-size:1rem;
+  color:var(--cyan);letter-spacing:3px;
+  text-transform:uppercase;margin-bottom:8px;
+}
+.plan-badge{
+  display:inline-block;
+  font-family:'Share Tech Mono',monospace;
+  font-size:.7rem;letter-spacing:2px;
+  color:var(--text2);
+  border:1px solid #00D4FF22;
+  padding:3px 10px;border-radius:2px;
+  margin-bottom:24px;
+  text-transform:uppercase;
+}
+.plan-price{
+  margin-bottom:8px;
+}
+.plan-currency{
+  font-family:'Orbitron',monospace;
+  font-size:.9rem;font-weight:700;
+  color:var(--text2);vertical-align:top;
+  margin-top:8px;display:inline-block;
+}
+.plan-value{
+  font-family:'Orbitron',monospace;
+  font-weight:900;font-size:2.8rem;
+  color:var(--yellow);
+  line-height:1;
+}
+.plan-value.free{color:var(--cyan);text-shadow:var(--glow2);}
+.plan-period{
+  font-size:.75rem;color:var(--text2);
+  letter-spacing:2px;margin-bottom:28px;
+  font-family:'Share Tech Mono',monospace;
+}
+.plan-features{
+  list-style:none;text-align:left;
+  margin-bottom:28px;
+}
+.plan-features li{
+  font-size:.85rem;font-weight:300;
+  color:var(--text2);padding:8px 0;
+  border-bottom:1px solid #00D4FF11;
+  display:flex;align-items:center;gap:10px;
+  line-height:1.4;
+}
+.plan-features li::before{
+  content:'▸';color:var(--cyan);
+  font-size:.7rem;flex-shrink:0;
+}
+.plan-btn{
+  width:100%;padding:14px;
+  background:transparent;
+  border:1px solid var(--cyan);
+  color:var(--cyan);
+  font-family:'Orbitron',monospace;
+  font-weight:700;font-size:.75rem;
+  letter-spacing:2px;text-transform:uppercase;
+  border-radius:4px;cursor:pointer;
+  transition:all .3s ease;
+}
+.plan-btn:hover,.plan-card.featured .plan-btn{
+  background:var(--cyan);color:var(--bg);
+  box-shadow:var(--glow2);
+}
+
+/* ═══════════════════ BATNA ═══════════════════ */
+.batna{
+  padding:100px 20px;
+  background:linear-gradient(180deg,transparent 0%,#0A0F1E 30%,#0A0F1E 70%,transparent 100%);
+}
+.batna-inner{
+  max-width:960px;margin:0 auto;
+  border:1px solid #00D4FF22;
+  border-radius:16px;
+  padding:60px 48px;
+  background:var(--card);
+  position:relative;overflow:hidden;
+}
+.batna-inner::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+}
+.batna-grid{
+  display:grid;
+  grid-template-columns:1fr 1px 1fr;
+  gap:40px;align-items:start;
+  margin-top:48px;
+}
+.batna-divider{background:#00D4FF22;}
+.batna-col h3{
+  font-family:'Orbitron',monospace;
+  font-weight:700;font-size:.9rem;
+  letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:24px;padding-bottom:16px;
+  border-bottom:1px solid #00D4FF22;
+}
+.batna-col.without h3{color:#FF4466;}
+.batna-col.with h3{color:var(--cyan);}
+.batna-list{list-style:none;}
+.batna-list li{
+  font-size:.9rem;font-weight:300;
+  color:var(--text2);padding:10px 0;
+  border-bottom:1px solid #FFFFFF08;
+  display:flex;align-items:flex-start;gap:12px;
+  line-height:1.5;
+}
+.batna-col.without .batna-list li::before{content:'✕';color:#FF446688;flex-shrink:0;}
+.batna-col.with .batna-list li::before{content:'✓';color:var(--cyan);flex-shrink:0;}
+.batna-conclusion{
+  margin-top:48px;padding-top:40px;
+  border-top:1px solid #00D4FF22;
+  text-align:center;
+}
+.batna-conclusion p{
+  font-size:1.05rem;font-weight:300;
+  line-height:1.8;color:var(--text2);
+  max-width:700px;margin:0 auto 24px;
+}
+.batna-conclusion strong{color:var(--cyan);}
+.batna-stat{
+  display:inline-flex;align-items:center;gap:24px;
+  flex-wrap:wrap;justify-content:center;
+  margin-top:8px;
+}
+.stat{text-align:center;padding:16px 24px;}
+.stat-num{
+  font-family:'Orbitron',monospace;
+  font-weight:900;font-size:2rem;
+  color:var(--cyan);text-shadow:var(--glow2);
+  display:block;
+}
+.stat-label{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.7rem;letter-spacing:2px;
+  color:var(--text2);text-transform:uppercase;
+}
+
+/* ═══════════════════ FOOTER ═══════════════════ */
+footer{
+  background:#030608;
+  border-top:1px solid #00D4FF22;
+  padding:48px 40px 32px;
+  position:relative;z-index:1;
+}
+.footer-inner{
+  max-width:1100px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:24px;
+}
+.footer-logo{
+  display:flex;align-items:center;gap:12px;
+}
+.footer-logo img{
+  width:40px;height:40px;border-radius:8px;
+  filter:drop-shadow(0 0 8px #00D4FF66);
+}
+.footer-logo span{
+  font-family:'Orbitron',monospace;
+  font-weight:900;font-size:1rem;
+  color:var(--cyan);letter-spacing:3px;
+}
+.footer-copy{
+  text-align:center;
+  font-family:'Exo 2',sans-serif;
+  font-weight:700;font-size:.85rem;
+  color:var(--yellow);
+  letter-spacing:1px;
+  line-height:1.7;
+}
+.footer-copy span{
+  display:block;font-size:.75rem;
+  color:#FFD70088;font-weight:400;
+}
+
+/* ═══════════════════ ANIMATIONS ═══════════════════ */
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-12px);}
+}
+@keyframes pulse{
+  0%,100%{opacity:.6;transform:scale(1);}
+  50%{opacity:1;transform:scale(1.08);}
+}
+@keyframes rotateBorder{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes scanline{
+  0%{transform:translateY(-100%);}
+  100%{transform:translateY(100vh);}
+}
+.scanline{
+  position:fixed;top:0;left:0;width:100%;height:2px;
+  background:linear-gradient(90deg,transparent,#00D4FF22,transparent);
+  z-index:0;pointer-events:none;
+  animation:scanline 8s linear infinite;
+}
+.fade-up{
+  opacity:0;transform:translateY(30px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:14px 20px;}
+  .hero-brand{flex-direction:column;gap:20px;}
+  .hero-title-block{text-align:center;}
+  .framework-cards{gap:6px;}
+  .fw-letter{font-size:2rem;}
+  .batna-grid{grid-template-columns:1fr;gap:0;}
+  .batna-divider{display:none;}
+  .batna-inner{padding:40px 24px;}
+  .footer-inner{flex-direction:column;text-align:center;}
+  .plans-grid.personal{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:480px){
+  .plans-grid.personal,.plans-grid.business{grid-template-columns:1fr;}
+  .framework-cards{flex-wrap:wrap;}
+  .fw-card{flex:0 0 calc(33% - 8px);}
+}
+</style>
+</head>
+<body>
+
+<canvas id="canvas"></canvas>
+<div class="grid-overlay"></div>
+<div class="scanline"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="assets/mydow.jpeg" alt="Mydow"/>
+    <span>MYDOW</span>
+  </div>
+  <a href="#" class="nav-cta">Acesse o Mydow Agora</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-brand fade-up">
+    <div class="hero-logo-wrap">
+      <img src="assets/mydow.jpeg" alt="Mydow"/>
+    </div>
+    <div class="hero-title-block">
+      <h1 class="hero-title">MYDOW</h1>
+      <p class="hero-subtitle">O Agente que Trabalha com Sabedoria</p>
+    </div>
+  </div>
+  <p class="hero-desc fade-up">
+    Uma inteligência artificial construída para pensar com você, operar por você e evoluir com você.
+    Produtividade real. Estratégia real. Resultados reais.
+  </p>
+  <a href="#" class="hero-cta fade-up">Acesse o Mydow Agora</a>
+  <div class="hero-badge fade-up">
+    <span>Tecnologia de nova geração</span>
+  </div>
+</section>
+
+<!-- STORYTELLING -->
+<section class="story">
+  <div class="section-tag">// Sobre o Mydow</div>
+  <h2 class="fade-up">Uma IA que não apenas <span>responde</span> —<br/>ela <span>pensa junto com você</span></h2>
+  <p class="fade-up">
+    Vivemos em uma era onde <strong>informação é abundante, mas clareza é escassa.</strong>
+    Profissionais, empreendedores e líderes perdem horas diárias em tarefas que poderiam ser resolvidas em minutos.
+  </p>
+  <p class="fade-up">
+    O Mydow nasceu para mudar isso. Um agente digital <strong>preciso, estratégico e que evolui com você</strong>,
+    construído para entregar resultados que importam — seja na gestão de projetos, na criação de conteúdo,
+    na análise de dados ou nas decisões mais críticas do seu negócio.
+  </p>
+  <p class="fade-up">
+    Não é mais sobre ter acesso à IA. É sobre ter acesso à <strong>IA certa.</strong>
+  </p>
+</section>
+
+<!-- FRAMEWORK -->
+<section class="framework">
+  <div class="section-tag">// Framework</div>
+  <h2 class="section-title fade-up">O que significa <span>MYDOW</span></h2>
+
+  <div class="framework-cards">
+    <div class="fw-card fade-up">
+      <div class="fw-letter">M</div>
+      <div class="fw-en">Mind</div>
+      <div class="fw-pt">Mente</div>
+    </div>
+    <div class="fw-card fade-up">
+      <div class="fw-letter">Y</div>
+      <div class="fw-en">Your</div>
+      <div class="fw-pt">Sua</div>
+    </div>
+    <div class="fw-card fade-up">
+      <div class="fw-letter">D</div>
+      <div class="fw-en">Digital</div>
+      <div class="fw-pt">Digital</div>
+    </div>
+    <div class="fw-card fade-up">
+      <div class="fw-letter">O</div>
+      <div class="fw-en">Operational</div>
+      <div class="fw-pt">Operacional</div>
+    </div>
+    <div class="fw-card fade-up">
+      <div class="fw-letter">W</div>
+      <div class="fw-en">Wisdom</div>
+      <div class="fw-pt">Sabedoria</div>
+    </div>
+  </div>
+
+  <p class="framework-slogan fade-up">
+    Sua mente digital que opera com sabedoria
+  </p>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-tag" style="display:block;text-align:center;margin-bottom:16px;">// Capacidades</div>
+  <h2 class="section-title fade-up">O que o <span>Mydow</span> faz por você</h2>
+  <p class="section-sub fade-up">8 pilares de inteligência para transformar sua performance</p>
+
+  <div class="features-grid">
+    <div class="feat-card fade-up">
+      <span class="feat-icon">⚡</span>
+      <div class="feat-title">Produtividade</div>
+      <p class="feat-desc">Automatize tarefas repetitivas, organize sua rotina e recupere horas do seu dia com precisão cirúrgica.</p>
+    </div>
+    <div class="feat-card fade-up">
+      <span class="feat-icon">🎯</span>
+      <div class="feat-title">Gestão de Projetos</div>
+      <p class="feat-desc">Planeje, estruture e acompanhe projetos com clareza estratégica do início à entrega final.</p>
+    </div>
+    <div class="feat-card fade-up">
+      <span class="feat-icon">📈</span>
+      <div class="feat-title">Resultados Estratégicos</div>
+      <p class="feat-desc">Transforme dados em decisões. O Mydow analisa cenários e aponta o caminho mais inteligente.</p>
+    </div>
+    <div class="feat-card fade-up">
+      <span class="feat-icon">♟️</span>
+      <div class="feat-title">Estratégia de Negócios</div>
+      <p class="feat-desc">Posicionamento, crescimento e visão de longo prazo. Pense como um estrategista com a IA ao seu lado.</p>
+    </div>
+    <div class="feat-card fade-up">
+      <span class="feat-icon">✍️</span>
+      <div class="feat-title">Criação de Conteúdo</div>
+      <p class="feat-desc">Textos, roteiros, posts, propostas e apresentações. Conteúdo de alta qualidade em fração do tempo.</p>
+    </div>
+    <div class="feat-card fade-up">
+      <span class="feat-icon">🔬</span>
+      <div class="feat-title">Análise de Dados</div>
+      <p class="feat-desc">Interprete números, identifique padrões e extraia insights que impulsionam resultados reais.</p>
+    </div>
+    <div class="feat-card fade-up">
+      <span class="feat-icon">🧠</span>
+      <div class="feat-title">Tomada de Decisão</div>
+      <p class="feat-desc">Avalie riscos, compare alternativas e decida com mais confiança em qualquer contexto.</p>
+    </div>
+    <div class="feat-card fade-up">
+      <span class="feat-icon">⏱️</span>
+      <div class="feat-title">Gestão de Tempo</div>
+      <p class="feat-desc">Priorize o que realmente importa. O Mydow ajuda você a focar energia onde gera mais impacto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS PERSONAL -->
+<section class="plans">
+  <div class="section-tag" style="display:block;text-align:center;margin-bottom:16px;">// Planos</div>
+  <h2 class="section-title fade-up">Escolha seu <span>Plano</span></h2>
+  <p class="section-sub fade-up">Acesso à inteligência premium no ritmo do seu crescimento</p>
+
+  <div class="plans-category fade-up">Pessoal</div>
+  <div class="plans-grid personal">
+    <div class="plan-card fade-up">
+      <div class="plan-name">Gratuito</div>
+      <div class="plan-badge">Versão Limitada</div>
+      <div class="plan-price">
+        <span class="plan-currency">R$</span>
+        <span class="plan-value free">0</span>
+      </div>
+      <div class="plan-period">,00 / mês</div>
+      <ul class="plan-features">
+        <li>Acesso básico ao Mydow</li>
+        <li>Até 20 mensagens por dia</li>
+        <li>Conversas simples e objetivas</li>
+        <li>Sem histórico salvo</li>
+      </ul>
+      <button class="plan-btn">Começar Grátis</button>
+    </div>
+    <div class="plan-card fade-up">
+      <div class="plan-name">Plus</div>
+      <div class="plan-badge">Pessoal</div>
+      <div class="plan-price">
+        <span class="plan-currency">R$</span>
+        <span class="plan-value">47</span>
+      </div>
+      <div class="plan-period">,00 / mês</div>
+      <ul class="plan-features">
+        <li>Mensagens ilimitadas</li>
+        <li>Histórico de conversas</li>
+        <li>Produtividade e conteúdo</li>
+        <li>Suporte por e-mail</li>
+      </ul>
+      <button class="plan-btn">Assinar Plus</button>
+    </div>
+    <div class="plan-card featured fade-up">
+      <div class="plan-name">Master</div>
+      <div class="plan-badge">Pessoal</div>
+      <div class="plan-price">
+        <span class="plan-currency">R$</span>
+        <span class="plan-value">79</span>
+      </div>
+      <div class="plan-period">,00 / mês</div>
+      <ul class="plan-features">
+        <li>Tudo do Plus</li>
+        <li>Análise de dados avançada</li>
+        <li>Gestão de projetos</li>
+        <li>Respostas prioritárias</li>
+        <li>Suporte dedicado</li>
+      </ul>
+      <button class="plan-btn">Assinar Master</button>
+    </div>
+    <div class="plan-card fade-up">
+      <div class="plan-name">Pro</div>
+      <div class="plan-badge">Pessoal</div>
+      <div class="plan-price">
+        <span class="plan-currency">R$</span>
+        <span class="plan-value">109</span>
+      </div>
+      <div class="plan-period">,00 / mês</div>
+      <ul class="plan-features">
+        <li>Tudo do Master</li>
+        <li>Acesso antecipado a novidades</li>
+        <li>Estratégia e decisão avançada</li>
+        <li>Integrações premium</li>
+        <li>Suporte VIP</li>
+      </ul>
+      <button class="plan-btn">Assinar Pro</button>
+    </div>
+  </div>
+
+  <div class="plans-category fade-up" style="margin-top:20px;">Business</div>
+  <div class="plans-grid business">
+    <div class="plan-card fade-up">
+      <div class="plan-name">Gratuito</div>
+      <div class="plan-badge">Business</div>
+      <div class="plan-price">
+        <span class="plan-currency">R$</span>
+        <span class="plan-value free">0</span>
+      </div>
+      <div class="plan-period">,00 / mês</div>
+      <ul class="plan-features">
+        <li>Acesso básico empresarial</li>
+        <li>Até 20 mensagens por dia</li>
+        <li>Teste para equipes</li>
+        <li>Sem histórico salvo</li>
+      </ul>
+      <button class="plan-btn">Começar Grátis</button>
+    </div>
+    <div class="plan-card featured fade-up">
+      <div class="plan-name">Master</div>
+      <div class="plan-badge">Business</div>
+      <div class="plan-price">
+        <span class="plan-currency">R$</span>
+        <span class="plan-value">197</span>
+      </div>
+      <div class="plan-period">,00 / mês</div>
+      <ul class="plan-features">
+        <li>Até 5 usuários</li>
+        <li>Mensagens ilimitadas</li>
+        <li>Estratégia e projetos</li>
+        <li>Análise de dados corporativa</li>
+        <li>Suporte prioritário</li>
+        <li>Histórico completo</li>
+      </ul>
+      <button class="plan-btn">Assinar Business Master</button>
+    </div>
+    <div class="plan-card fade-up">
+      <div class="plan-name">Gold</div>
+      <div class="plan-badge">Business</div>
+      <div class="plan-price">
+        <span class="plan-currency">R$</span>
+        <span class="plan-value">289</span>
+      </div>
+      <div class="plan-period">,00 / mês</div>
+      <ul class="plan-features">
+        <li>Usuários ilimitados</li>
+        <li>Tudo do Business Master</li>
+        <li>IA treinada para seu negócio</li>
+        <li>Integrações avançadas</li>
+        <li>Gerente de conta dedicado</li>
+        <li>SLA garantido</li>
+      </ul>
+      <button class="plan-btn">Assinar Gold</button>
+    </div>
+  </div>
+</section>
+
+<!-- BATNA McKINSEY -->
+<section class="batna">
+  <div class="batna-inner fade-up">
+    <div class="section-tag" style="display:block;text-align:center;margin-bottom:16px;">// Análise Estratégica</div>
+    <h2 class="section-title">O custo de <span>não decidir</span> também é um custo</h2>
+    <p class="section-sub" style="margin-bottom:0;">A pergunta não é se você pode ter o Mydow. É se você pode ficar sem ele.</p>
+
+    <div class="batna-grid">
+      <div class="batna-col without">
+        <h3>Sem o Mydow</h3>
+        <ul class="batna-list">
+          <li>Horas perdidas em tarefas manuais e repetitivas</li>
+          <li>Decisões tomadas sem análise adequada de dados</li>
+          <li>Projetos atrasados por falta de clareza estratégica</li>
+          <li>Conteúdo produzido lentamente e com esforço alto</li>
+          <li>Competidores com IA avançando mais rápido que você</li>
+          <li>Oportunidades perdidas por falta de velocidade de execução</li>
+        </ul>
+      </div>
+      <div class="batna-divider"></div>
+      <div class="batna-col with">
+        <h3>Com o Mydow</h3>
+        <ul class="batna-list">
+          <li>Produtividade multiplicada — mais entrega em menos tempo</li>
+          <li>Decisões baseadas em análise estratégica inteligente</li>
+          <li>Projetos gerenciados com clareza e foco em resultado</li>
+          <li>Conteúdo de alta qualidade produzido em minutos</li>
+          <li>Vantagem competitiva real com IA de ponta</li>
+          <li>Velocidade e precisão em todas as frentes do negócio</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="batna-conclusion">
+      <p>
+        Empresas e profissionais que adotam IA estratégica crescem <strong>até 40% mais rápido</strong>
+        do que os que operam sem ela. O Mydow não é um custo — é o <strong>maior investimento de retorno</strong>
+        que você pode fazer na sua performance hoje.
+      </p>
+      <div class="batna-stat">
+        <div class="stat">
+          <span class="stat-num">40%</span>
+          <span class="stat-label">Mais produtividade</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">3x</span>
+          <span class="stat-label">Mais velocidade</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">24/7</span>
+          <span class="stat-label">Disponibilidade</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">Potencial de crescimento</span>
+        </div>
+      </div>
+      <a href="#" class="hero-cta" style="margin-top:32px;display:inline-block;">Acesse o Mydow Agora</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <img src="assets/mydow.jpeg" alt="Mydow"/>
+      <span>MYDOW</span>
+    </div>
+    <div class="footer-copy">
+      Desenvolvido por Michel Macedo Holding
+      <span>Mydow © 2026 — Todos os direitos reservados</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── PARTICLES ──
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+
+function resize(){
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+class Particle {
+  constructor(){this.reset();}
+  reset(){
+    this.x = Math.random()*W;
+    this.y = Math.random()*H;
+    this.size = Math.random()*1.5+.3;
+    this.speedX = (Math.random()-.5)*.4;
+    this.speedY = (Math.random()-.5)*.4;
+    this.opacity = Math.random()*.5+.1;
+    this.pulse = Math.random()*Math.PI*2;
+  }
+  update(){
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.pulse += .02;
+    this.opacity = (.2+Math.sin(this.pulse)*.15);
+    if(this.x<0||this.x>W||this.y<0||this.y>H) this.reset();
+  }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fillStyle = `rgba(0,212,255,${this.opacity})`;
+    ctx.fill();
+  }
+}
+
+for(let i=0;i<120;i++) particles.push(new Particle());
+
+// Draw connections
+function drawConnections(){
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx*dx+dy*dy);
+      if(dist<120){
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0,212,255,${.08*(1-dist/120)})`;
+        ctx.lineWidth = .5;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animate(){
+  ctx.clearRect(0,0,W,H);
+  particles.forEach(p=>{p.update();p.draw();});
+  drawConnections();
+  requestAnimationFrame(animate);
+}
+animate();
+
+// ── SCROLL ANIMATIONS ──
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+},{threshold:.1});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
